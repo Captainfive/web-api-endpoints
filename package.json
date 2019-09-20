@@ -24,6 +24,7 @@
     "homepage": "https://github.com/Captainfive/web-api-endpoints#readme",
     "dependencies": {
         "body-parser": "^1.19.0",
+        "make-promises-safe": "^5.0.0",
         "polka": "^0.5.2"
     },
     "devDependencies": {

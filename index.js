@@ -2,7 +2,7 @@
 require("make-promises-safe");
 
 // Require NodeJs dependencies
-const { readFile } = require("fs").promises;
+const { readFile, writeFile } = require("fs").promises;
 const { join } = require("path");
 
 // Require third party dependencies
@@ -32,12 +32,14 @@ polka()
 
         res.end(JSON.parse(readJson));
     })
-    .post("/post/addons", jsonParser, (req, res) => {
+    .post("/post/addon", jsonParser, async(req, res) => {
         const { body, headers: { "content-type": contentType } } = req;
 
         if (contentType !== "application/json") {
             console.log("wrong format");
         }
+
+        await writeFile(join(__dirname, "data", "newAddons.json"), body);
 
         res.end();
     })

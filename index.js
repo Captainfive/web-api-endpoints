@@ -7,30 +7,34 @@ const { join } = require("path");
 
 // Require third party dependencies
 const polka = require("polka");
+const send = require("@polka/send-type");
 const bodyParser = require("body-parser");
 
 // create application/json parser
 const jsonParser = bodyParser.json();
 
 // Json example path
-const jsonExample = join(__dirname, "data", "addons.json");
+const dataFile = join(__dirname, "data", "dataFile.json");
+const addons = join(__dirname, "data", "addonsList.json");
 
 polka()
     .use(bodyParser.json())
-    .get("/addons", async(req, res) => {
+    .get("/infos", async(req, res) => {
         // Read our json exemple.json
-        const readJson = await readFile(jsonExample);
+        const readJson = await readFile(dataFile);
 
         res.end(readJson);
     })
     .get("/addons/:name", async(req, res) => {
         const { name } = req.params;
-        console.log(name);
         // Read our json exemple.json
-        const readJson = await readFile(jsonExample);
-        console.log(readJson);
-
-        res.end(JSON.parse(readJson));
+        const readJson = await readFile(addons);
+        for (const property of Object.entries(JSON.parse(readJson))) {
+            if (property[0] === name) {
+                send(res, 200, property[1], { "Content-Type": "application/json" });
+                break;
+            }
+        }
     })
     .post("/post/addon", jsonParser, async(req, res) => {
         const { body, headers: { "content-type": contentType } } = req;

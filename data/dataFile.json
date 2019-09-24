@@ -1,0 +1,14 @@
+{
+    "db_name": "registry",
+    "doc_count": 1390701,
+    "doc_del_count": 340,
+    "update_seq": 5118923,
+    "purge_seq": 0,
+    "addon": "addon1",
+    "compact_running": false,
+    "disk_size": 30051631239,
+    "data_size": 18883311452,
+    "instance_start_time": "1568728658005791",
+    "disk_format_version": 6,
+    "committed_update_seq": 5118923
+}

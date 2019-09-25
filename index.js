@@ -23,15 +23,15 @@ polka()
         // Read our json exemple.json
         const readJson = await readFile(dataFile);
 
-        res.end(readJson);
+        send(res, 200, readJson, { "Content-Type": "application/json" });
     })
     .get("/addons/:name", async(req, res) => {
         const { name } = req.params;
         // Read our json exemple.json
         const readJson = await readFile(addons);
-        for (const property of Object.entries(JSON.parse(readJson))) {
-            if (property[0] === name) {
-                send(res, 200, property[1], { "Content-Type": "application/json" });
+        for (const [key, value] of Object.entries(JSON.parse(readJson))) {
+            if (key === name) {
+                send(res, 200, value, { "Content-Type": "application/json" });
                 break;
             }
         }

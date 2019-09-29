@@ -1,0 +1,8 @@
+{
+    "registry": {
+        "type": "default",
+        "activate": true,
+        "params": true,
+        "link": "google.fr"
+    }
+}

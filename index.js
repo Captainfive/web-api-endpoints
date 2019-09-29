@@ -16,6 +16,7 @@ const jsonParser = bodyParser.json();
 // Json example path
 const dataFile = join(__dirname, "data", "dataFile.json");
 const addons = join(__dirname, "data", "addonsList.json");
+const databases = join(__dirname, "data", "databaseList.json");
 
 polka()
     .use(bodyParser.json())
@@ -29,6 +30,17 @@ polka()
         const { name } = req.params;
         // Read our json exemple.json
         const readJson = await readFile(addons);
+        for (const [key, value] of Object.entries(JSON.parse(readJson))) {
+            if (key === name) {
+                send(res, 200, value, { "Content-Type": "application/json" });
+                break;
+            }
+        }
+    })
+    .get("database/:database", async(req, res) => {
+        const { name } = req.params;
+        // Read our json exemple.json
+        const readJson = await readFile(databases);
         for (const [key, value] of Object.entries(JSON.parse(readJson))) {
             if (key === name) {
                 send(res, 200, value, { "Content-Type": "application/json" });

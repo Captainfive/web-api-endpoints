@@ -63,5 +63,5 @@ polka()
         if (err) {
             throw err;
         }
-        console.log("> Running on localhost:1993");
+        console.log("> Running on https://localhost:1993");
     });
